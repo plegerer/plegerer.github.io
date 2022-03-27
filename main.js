@@ -146,11 +146,12 @@ __webpack_require__.r(__webpack_exports__);
 function initializeAddIn() {
   return Office.onReady();
 }
-const State = Object(_fable_fable_library_2_4_16_Types_js__WEBPACK_IMPORTED_MODULE_0__["declare"])(function App_State(arg1) {
+const State = Object(_fable_fable_library_2_4_16_Types_js__WEBPACK_IMPORTED_MODULE_0__["declare"])(function App_State(arg1, arg2) {
   this.Count = arg1 | 0;
+  this.Excelstate = arg2;
 }, _fable_fable_library_2_4_16_Types_js__WEBPACK_IMPORTED_MODULE_0__["Record"]);
 function State$reflection() {
-  return Object(_fable_fable_library_2_4_16_Reflection_js__WEBPACK_IMPORTED_MODULE_1__["record"])("App.State", [], State, () => [["Count", _fable_fable_library_2_4_16_Reflection_js__WEBPACK_IMPORTED_MODULE_1__["int32"]]]);
+  return Object(_fable_fable_library_2_4_16_Reflection_js__WEBPACK_IMPORTED_MODULE_1__["record"])("App.State", [], State, () => [["Count", _fable_fable_library_2_4_16_Reflection_js__WEBPACK_IMPORTED_MODULE_1__["int32"]], ["Excelstate", _fable_fable_library_2_4_16_Reflection_js__WEBPACK_IMPORTED_MODULE_1__["string"]]]);
 }
 const Msg = Object(_fable_fable_library_2_4_16_Types_js__WEBPACK_IMPORTED_MODULE_0__["declare"])(function App_Msg(tag, name, ...fields) {
   _fable_fable_library_2_4_16_Types_js__WEBPACK_IMPORTED_MODULE_0__["Union"].call(this, tag, name, ...fields);
@@ -165,20 +166,22 @@ function init() {
     const tupledArg = [String(x.host), String(x.platform)];
     return new Msg(2, "OnPromiseSuccess", tupledArg[0], tupledArg[1]);
   });
-  return [new State(0), Object(_fable_Fable_Elmish_3_1_0_cmd_fs__WEBPACK_IMPORTED_MODULE_2__["Cmd$$$none"])()];
+  return [new State(0, ""), initialCmd];
 }
 function update(msg, state) {
+  var Excelstate;
+
   switch (msg.tag) {
     case 1:
       {
-        return [new State(state.Count - 1), Object(_fable_Fable_Elmish_3_1_0_cmd_fs__WEBPACK_IMPORTED_MODULE_2__["Cmd$$$none"])()];
+        return [new State(state.Count - 1, state.Excelstate), Object(_fable_Fable_Elmish_3_1_0_cmd_fs__WEBPACK_IMPORTED_MODULE_2__["Cmd$$$none"])()];
       }
 
     case 2:
       {
         const clo1 = Object(_fable_fable_library_2_4_16_String_js__WEBPACK_IMPORTED_MODULE_3__["toConsole"])(Object(_fable_fable_library_2_4_16_String_js__WEBPACK_IMPORTED_MODULE_3__["printf"])("%A"));
         clo1(msg.fields[0]);
-        return [state, Object(_fable_Fable_Elmish_3_1_0_cmd_fs__WEBPACK_IMPORTED_MODULE_2__["Cmd$$$none"])()];
+        return [(Excelstate = msg.fields[0] + " : " + msg.fields[1], new State(state.Count, Excelstate)), Object(_fable_Fable_Elmish_3_1_0_cmd_fs__WEBPACK_IMPORTED_MODULE_2__["Cmd$$$none"])()];
       }
 
     case 3:
@@ -190,7 +193,7 @@ function update(msg, state) {
 
     default:
       {
-        return [new State(state.Count + 2), Object(_fable_Fable_Elmish_3_1_0_cmd_fs__WEBPACK_IMPORTED_MODULE_2__["Cmd$$$none"])()];
+        return [new State(state.Count + 3, state.Excelstate), Object(_fable_Fable_Elmish_3_1_0_cmd_fs__WEBPACK_IMPORTED_MODULE_2__["Cmd$$$none"])()];
       }
   }
 }
@@ -202,6 +205,8 @@ function render(state$$1, dispatch) {
     dispatch(new Msg(1, "Decrement"));
   }, ["onClick", value$$3]), (value$$5 = "Decrement", ["children", value$$5])]), Object(_fable_Feliz_1_57_0_Interop_fs__WEBPACK_IMPORTED_MODULE_6__["Interop$$$reactElement"])("button", Object(_fable_fable_library_2_4_16_Util_js__WEBPACK_IMPORTED_MODULE_5__["createObj"])(xs$$1, 0))), Object(_fable_Feliz_1_57_0_Interop_fs__WEBPACK_IMPORTED_MODULE_6__["Interop$$$reactElement"])("h1", {
     children: [state$$1.Count]
+  }), Object(_fable_Feliz_1_57_0_Interop_fs__WEBPACK_IMPORTED_MODULE_6__["Interop$$$reactElement"])("p", {
+    children: [state$$1.Excelstate]
   })]);
   return Object(_fable_Feliz_1_57_0_Interop_fs__WEBPACK_IMPORTED_MODULE_6__["Interop$$$reactElement"])("div", {
     children: _fable_Feliz_1_57_0_Interop_fs__WEBPACK_IMPORTED_MODULE_6__["Interop$$$reactApi"].Children.toArray(Object(_fable_fable_library_2_4_16_Array_js__WEBPACK_IMPORTED_MODULE_7__["ofSeq"])(children, Array))
